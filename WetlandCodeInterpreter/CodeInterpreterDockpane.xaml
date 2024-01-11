@@ -1,0 +1,161 @@
+﻿<UserControl x:Class="WetlandCodeInterpreter.CodeInterpreterDockpaneView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   
+             xmlns:ui="clr-namespace:WetlandCodeInterpreter"
+             xmlns:extensions="clr-namespace:ArcGIS.Desktop.Extensions;assembly=ArcGIS.Desktop.Extensions"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="300"
+             d:DataContext="{Binding Path=ui.CodeInterpreterDockpaneViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <extensions:DesignOnlyResourceDictionary Source="pack://application:,,,/ArcGIS.Desktop.Framework;component\Themes\Default.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="Auto" MinHeight="200"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="{Binding ImageContent}" 
+               Stretch="Fill"
+               Width="150"
+               Height="150"
+               VerticalAlignment="Center"
+               Margin="25"
+               HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" Text="Enter a Wetland Code to Check:" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Margin="0, 0, 0, 75" TextWrapping="Wrap" Padding="20, 0 , 20, 0"/>
+        <TextBox Grid.Row="1" Text="{Binding WetlandCode, UpdateSourceTrigger=PropertyChanged}" Width="150" VerticalAlignment="Center" HorizontalAlignment="Center" TextChanged="TextBox_TextChanged" KeyDown="TextBox_KeyDown"/>
+        <Button Grid.Row="1" Content="Check Code" Command="{Binding CmdCheckCode}" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 0, 0, -55" Background="Aquamarine" BorderBrush="Teal"/>
+        <ScrollViewer Grid.Row="2" Width="Auto">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding ErrorText}" Padding="20, 5, 20, 5" Visibility="{Binding ErrorTextVisibility}" TextWrapping="Wrap" FontSize="14" FontWeight="DemiBold"/>
+                <StackPanel Orientation="Vertical" Visibility="{Binding SystemVisibility}">
+                    <Grid Cursor="Hand" MouseDown="System_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                                <Run FontWeight="Bold" Foreground="DeepPink" FontSize="14" Text="System: "/>
+                                <Run Text="{Binding SystemText}"/>
+                        </TextBlock>
+                        <Label Content="{Binding SystemArrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding SystemDescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding SystemDescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding SubsystemVisibility}">
+                    <Grid Cursor="Hand" MouseDown="Subsystem_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                            <Run FontWeight="Bold" Foreground="LightSeaGreen" FontSize="14" Text="Subsystem: "/>
+                            <Run Text="{Binding SubsystemText}"/>
+                        </TextBlock>
+                        <Label Content="{Binding SubsystemArrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+                    
+                    <TextBlock Text="{Binding SubsystemDescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding SubsystemDescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Class1Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Class1_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                            <Run FontWeight="Bold" Foreground="Firebrick" FontSize="14" Text="Class: "/>
+                            <Run Text="{Binding Class1Text}"/>
+                        </TextBlock>
+                        <Label Content="{Binding Class1Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Class1DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Class1DescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Subclass1Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Subclass1_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                            <Run FontWeight="Bold" Foreground="SandyBrown" FontSize="14" Text="Subclass: "/>
+                            <Run Text="{Binding Subclass1Text}"/>
+                        </TextBlock>
+                        <Label Content="{Binding Subclass1Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+                    
+                    <TextBlock Text="{Binding Subclass1DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Subclass1DescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Class2Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Class2_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                            <Run FontWeight="Bold" Foreground="Firebrick" FontSize="14" Text="Class: "/>
+                            <Run Text="{Binding Class2Text}"/>
+                        </TextBlock>
+                        <Label Content="{Binding Class2Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Class2DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Class2DescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Subclass2Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Subclass2_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                            <Run FontWeight="Bold" Foreground="SandyBrown" FontSize="14" Text="Subclass: "/>
+                            <Run Text="{Binding Subclass2Text}" />
+                        </TextBlock>
+                        <Label Content="{Binding Subclass2Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+                    
+                    <TextBlock Text="{Binding Subclass2DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Subclass2DescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding WaterRegimeVisibility}">
+                    <Grid Cursor="Hand" MouseDown="WaterRegime_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5" TextWrapping="Wrap" HorizontalAlignment="Stretch">
+                            <Run FontWeight="Bold" Foreground="CornflowerBlue" FontSize="14" Text="Water Regime: "/>
+                            <Run Text="{Binding WaterRegimeText}"/>
+                        </TextBlock>
+                        <Label Content="{Binding WaterRegimeArrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+                    
+                    <TextBlock Text="{Binding WaterRegimeDescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding WaterRegimeDescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding ModifierVisibility}">
+                    <Grid Cursor="Hand" MouseDown="Modifier_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5">
+                            <Run FontWeight="Bold" Foreground="MediumPurple" FontSize="14" Text="Modifier: "/>
+                            <Run Text="{Binding ModifierText}"/>
+                        </TextBlock>
+                        <Label Content="{Binding ModifierArrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+                    
+                    <TextBlock Text="{Binding ModifierDescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding ModifierDescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Modifier1Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Modifier1_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5">
+                            <Run FontWeight="Bold" Foreground="MediumPurple" FontSize="14" Text="Modifier: "/>
+                            <Run Text="{Binding Modifier1Text}"/>
+                        </TextBlock>
+                        <Label Content="{Binding Modifier1Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Modifier1DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Modifier1DescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Modifier2Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Modifier2_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5">
+                            <Run FontWeight="Bold" Foreground="MediumPurple" FontSize="14" Text="Modifier: "/>
+                            <Run Text="{Binding Modifier2Text}"/>
+                        </TextBlock>
+                        <Label Content="{Binding Modifier2Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Modifier2DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Modifier2DescriptionVisibility}"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Visibility="{Binding Modifier3Visibility}">
+                    <Grid Cursor="Hand" MouseDown="Modifier3_Clicked" MouseEnter="Mouse_Over" MouseLeave="Mouse_Leave">
+                        <TextBlock Padding="20, 5, 20, 5">
+                            <Run FontWeight="Bold" Foreground="MediumPurple" FontSize="14" Text="Modifier: "/>
+                            <Run Text="{Binding Modifier3Text}"/>
+                        </TextBlock>
+                        <Label Content="{Binding Modifier3Arrow}" VerticalAlignment="Center" HorizontalAlignment="Right" FontWeight="Bold"/>
+                    </Grid>
+
+                    <TextBlock Text="{Binding Modifier3DescriptionText}" TextWrapping="Wrap" Padding="20 5, 20, 5" Visibility="{Binding Modifier3DescriptionVisibility}"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

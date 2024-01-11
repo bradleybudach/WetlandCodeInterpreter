@@ -1,0 +1,53 @@
+﻿<ArcGIS defaultAssembly="WetlandCodeInterpreter.dll" defaultNamespace="WetlandCodeInterpreter" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{b49da266-7ef5-4f1e-b788-2ec234cf4232}" version="1.0" desktopVersion="3.1.41833">
+    <Name>Wetland Code Interpreter</Name>
+    <Description>Interprets Wetland Codes to determine their validity and details each element of the codes.</Description>
+    <Image>Images\WetlandButton32.png</Image>
+    <Author>bbudach</Author>
+    <Company>2019-08-02 Image 5</Company>
+    <Date>10/19/2023 1:53:41 PM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="WetlandCodeInterpreter_Module " className="Module1" autoLoad="true" caption="NWI Interpreter">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="WetlandCodeInterpreter_Tab1" caption="New Tab">
+          <group refID="WetlandCodeInterpreter_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="WetlandCodeInterpreter_Group1" caption="NWI Interpreter" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <button refID="WetlandCodeInterpreter_CodeInterpreterDockpane_ShowButton" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="WetlandCodeInterpreter_CodeInterpreterDockpane_ShowButton" caption="Launch Wetland Code Interpreter" className="CodeInterpreterDockpane_ShowButton" loadOnClick="true" smallImage="Images\WetlandButton16.png" largeImage="Images\WetlandButton32.png">
+          <tooltip heading="Show Dockpane">Launches the Wetland Code Interpreter Panel<disabledText /></tooltip>
+        </button>
+        <button id="WetlandCodeInterpreter_CodeInterpreterDockpane_CheckNWICodeButton" caption="Identify NWI Code" className="CodeInterpreterDockpane_CheckNWICodeButton" smallImage="Images\WetlandButton16.png">
+          <tooltip heading="Identify NWI Code">Uses the Wetland Code Interpreter to check if the code on the polygon is valid and describe it<disabledText /></tooltip>
+        </button>
+      </controls>
+      <dockPanes>
+        <dockPane id="WetlandCodeInterpreter_CodeInterpreterDockpane" caption="Wetland Code Interpreter" className="CodeInterpreterDockpaneViewModel" dock="group" dockWith="esri_core_projectDockPane">
+          <content className="CodeInterpreterDockpaneView" />
+        </dockPane>
+      </dockPanes>
+    </insertModule>
+    <updateModule refID="esri_mapping">
+       <menus>
+         <updateMenu refID="esri_mapping_selection2DContextMenu">
+          <insertButton refID="WetlandCodeInterpreter_CodeInterpreterDockpane_CheckNWICodeButton" insert="before"
+          placeWith="esri_editing_EditVerticesMove" separator="true"/>
+          </updateMenu>
+       </menus>
+    </updateModule>
+  </modules>
+</ArcGIS>
